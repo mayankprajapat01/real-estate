@@ -4,6 +4,9 @@ import bycryptjs from 'bcryptjs';
 
 export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+        return res.status(400).json({ success: false, statusCode: 400, message: 'All fields are required.' });
+    }
     const hashedPassword = bycryptjs.hashSync(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
     try {
@@ -12,6 +15,4 @@ export const signup = async (req, res, next) => {
     } catch (error) {
         next(error);
     }
-
-
 };
