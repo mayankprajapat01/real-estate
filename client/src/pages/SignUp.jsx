@@ -2,7 +2,7 @@ import { compareSync } from "bcryptjs";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function SingUp() {
+export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
