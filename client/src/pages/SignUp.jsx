@@ -1,6 +1,7 @@
 import { compareSync } from "bcryptjs";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import OAuth from "../components/OAuth.jsx";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -74,6 +75,7 @@ export default function SignUp() {
         >
           {loading ? "Loading..." : "Sign Up"}
         </button>
+        <OAuth></OAuth>
         <div className="flex gap-2 mt-5">
           <p>Have an account?</p>
           <Link to={"/sign-in"}>
