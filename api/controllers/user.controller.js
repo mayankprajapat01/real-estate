@@ -22,7 +22,6 @@ export const updateUser = async (req, res, next) => {
                 avatar: req.body.avatar
             }
         }, { new: true });
-        console.log(updatedUser._doc);
         const { password, ...rest } = updatedUser._doc;
         res.status(200).json(rest);
     } catch (error) {
