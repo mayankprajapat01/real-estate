@@ -10,7 +10,7 @@ export const test = (req, res) => {
 }
 
 export const updateUser = async (req, res, next) => {
-    if (req.user.id !== req.params.id) return next(errorHandler(401, "you can only update your own account."));
+    if ((req.user.id || req.user._id) !== req.params.id) return next(errorHandler(401, "you can only update your own account."));
     try {
         if (req.body.password) {
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -55,5 +55,20 @@ export const getUserListings = async (req, res, next) => {
         }
     } else {
         return next(errorHandler(401, 'You can only view your own listings!'));
+    }
+}
+
+export const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) return next(errorHandler(404, 'User not found!'));
+        //console.log(user._doc);
+        const { password: pass, ...rest } = user._doc;
+
+        res.status(200).json(rest);
+        console.log(rest);
+    } catch (error) {
+        next(error);
     }
 }
