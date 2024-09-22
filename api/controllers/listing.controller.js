@@ -11,15 +11,15 @@ export const createListing = async (req, res, next) => {
 }
 
 export const deleteListing = async (req, res, next) => {
-    console.log('deleting');
+    console.log(req.params.id);
     const listing = await Listing.findById(req.params.id);
-    console.log(listing);
+    // console.log(listing);
     if (!listing) {
         return next(errorHandler(404, 'Listing not found'));
     }
     //console.log(req.user._id);
     //console.log(listing.userRef);
-    if ((req.user_id || req.user.id) !== listing.userRef) {
+    if ((req.user._id || req.user.id) !== listing.userRef) {
         next(errorHandler(401, 'You can only access your own listings'));
     }
     try {
